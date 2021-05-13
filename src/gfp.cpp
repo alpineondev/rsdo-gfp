@@ -5,7 +5,6 @@
 #include "gfp.h"
 #include "util_stuff.h"
 #include "paths.h"
-#include "switches.h"
 #include "tstring.h"
 #include <ctype.h>
 #include "linux.h"
@@ -18,45 +17,29 @@ void TGFP::PrviVhodniFilter(void) {
     int dolzina = MAX_DOLZ_VHODA;
     int Znak;
     int j = 0;
-    //const char odpisani_znaki[] = "`~@^[{]}\\|";
 
     unsigned int DolzinaVhoda = (unsigned int)strlen(text_buf_1);
     for (unsigned int i = 0; i < DolzinaVhoda; i++) {
 
-        Znak = ConvertCPc(vhod[i], CPascii);
-
-        if (SumnikiZNarekovaji && Znak == '\"') {
-            izhod[j] = Znak;
-            if (i + 1 < DolzinaVhoda) {
-
-                if (tolower(vhod[i + 1]) == 's') {
-                    izhod[j] = '{';
-                    i++;
-                }
-                else if (tolower(vhod[i + 1]) == 'c') {
-                    izhod[j] = '~';
-                    i++;
-                }
-                else if (tolower(vhod[i + 1]) == 'z') {
-                    izhod[j] = '`';
-                    i++;
-                }
-            }
-            j++;
+        if ((vhod[i] >= 65 && vhod[i] <= 90) ||
+            (vhod[i] >= 97 && vhod[i] <= 122) ||
+            strchr(".,;:!?-\r\n\t ", vhod[i]) != NULL ||
+            IsInCPc(vhod[i], CPlatin2))
+        {
+            Znak = ConvertCPc(vhod[i], CPlatin2);
         }
-        if ((Znak >= 32 && Znak <= 126) || Znak == '\n' || Znak == '\r' || Znak == 0xEC)
-            izhod[j++] = Znak;
-        else if (Znak == 127) {
+        else continue;
+
+        if (Znak == 127) {
+            izhod[j++] = 68;   // D
+            izhod[j++] = 96;   // ž
+        }
+        else if (Znak == 125) {
             izhod[j++] = 100;  // d
-            izhod[j++] = 96;   // z
+            izhod[j++] = 96;   // ž
         }
-        else if (Znak == 0x80) {  //znak za eur 0x80
-            izhod[j++] = 'E';
-            izhod[j++] = 'U';
-            izhod[j++] = 'R';
-            izhod[j++] = ' ';
-        }
-
+        else if ((Znak >= 32 && Znak <= 126) || Znak == '\n' || Znak == '\r' || Znak == 0xEC)
+            izhod[j++] = Znak;
 
         if (j + 3 > dolzina) break;
     }

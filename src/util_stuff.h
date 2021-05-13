@@ -22,8 +22,9 @@ int toCstring(char *stavek);
 int Exists(char znak, const char *string);
 int SpacesOut(char *niz);
 char *Lower(char *niz);
-int ConvertCPc(int s, int cp);
-void ConvertCPcStr(char* Niz, int cp);
+int ConvertCPc(int s, const int cp_in);
+void ConvertCPcStr(char* Niz, const int  cp_in);
+bool IsInCPc(int s, const int cp_in);
 char *GetExtension(char *filename);
 bool AreExtensionsEqual(const char *a, const char *b);
 

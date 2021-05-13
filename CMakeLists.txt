@@ -20,7 +20,6 @@ add_executable(rsdo-gfp
     src/sint1.cpp
     src/slovar.cpp
     src/stavek.cpp
-    src/switches.cpp
     src/tstring.cpp
     src/util_stuff.cpp
     src/velcrke.cpp
@@ -36,7 +35,6 @@ add_executable(rsdo-gfp
     src/profile5.h
     src/Proteus_GFP.h
     src/sint1.h
-    src/switches.h
     src/tstring.h
     src/util_stuff.h
 )

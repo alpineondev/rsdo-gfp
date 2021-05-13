@@ -10,7 +10,6 @@
 #include "util_stuff.h"
 #include "sint1.h"
 #include "mystrings.h"
-#include "switches.h"
 
 #ifdef _VISUALC_CE_
 #include "wce_direct.h"

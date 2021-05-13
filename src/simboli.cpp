@@ -27,8 +27,8 @@ int TGFP::pripravi_simbole(class Profile *profile)
     if (beri_sim("koncna_locila", KLOCILO, profile) != 0) return(-1);
     if (beri_sim("nekoncna_locila", NLOCILO, profile) != 0) return(-1);
     if (beri_sim("dodatna_locila", DLOCILO, profile) != 0) return(-1);
-    if (beri_sim("posebni_znaki", POSZNAK, profile) != 0) return(-1);
-    if (beri_sim("dodatni_znaki", DODZNAK, profile) != 0) return(-1);
+    if (beri_sim("posebni_znaki", POSZNAK, "$%&/()+=<>*-") != 0) return(-1);
+    if (beri_sim("dodatni_znaki", DODZNAK, "\"\\'|") != 0) return(-1);
     if (beri_sim("samoglasniki", SAMOGL, profile) != 0) return(-1);
     if (beri_sim("soglasniki", SOGLAS, profile) != 0) return(-1);
     if (beri_sim("sogl_pr", SOGLAS_PR, profile) != 0) return(-1);
@@ -69,6 +69,34 @@ int TGFP::beri_sim(const char *ime, int index, class Profile *profile)
         return (-1);
     }
     profile->prf_get_str(ime, (char*)str);
+
+    if (strcmp(ime, "velike_crke") == 0) strcpy((char*)vcrke, (char *)str);
+    if (strcmp(ime, "male_crke") == 0) strcpy((char*)mcrke, (char *)str);
+
+
+    for (i = 0; i < n; i++)
+        if (str[i] > 0) simbol_tab[str[i]][index] = i + 1;
+        else {
+            return (-1);
+        }
+    return 0;
+}
+
+// -------------------------------------------------------------------------
+
+int TGFP::beri_sim(const char *ime, int index, const char *data)
+{
+    int  i;
+    int  n;
+    unsigned char str[MAX_SIM];
+
+    for (i = 0; i < MAX_SIM; i++) simbol_tab[i][index] = 0;
+
+    n = (int)strlen(data);
+    if ((n > MAX_SIM) || (n <= 0)) {
+        return (-1);
+    }
+    strcpy((char*)str, data);
 
     if (strcmp(ime, "velike_crke") == 0) strcpy((char*)vcrke, (char *)str);
     if (strcmp(ime, "male_crke") == 0) strcpy((char*)mcrke, (char *)str);

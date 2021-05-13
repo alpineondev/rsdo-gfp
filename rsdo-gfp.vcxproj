@@ -36,7 +36,6 @@
     <ClCompile Include="src\sint1.cpp" />
     <ClCompile Include="src\slovar.cpp" />
     <ClCompile Include="src\stavek.cpp" />
-    <ClCompile Include="src\switches.cpp" />
     <ClCompile Include="src\tstring.cpp" />
     <ClCompile Include="src\util_stuff.cpp" />
     <ClCompile Include="src\velcrke.cpp" />
@@ -53,7 +52,6 @@
     <ClInclude Include="src\profile5.h" />
     <ClInclude Include="src\Proteus_GFP.h" />
     <ClInclude Include="src\sint1.h" />
-    <ClInclude Include="src\switches.h" />
     <ClInclude Include="src\tstring.h" />
     <ClInclude Include="src\util_stuff.h" />
   </ItemGroup>

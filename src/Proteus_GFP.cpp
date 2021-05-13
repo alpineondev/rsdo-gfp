@@ -1,5 +1,4 @@
 #include "sint1.h"
-#include "switches.h"
 #include "paths.h"
 #include "Proteus_GFP.h"
 #include <string>

@@ -18,7 +18,6 @@
 #include "sint1.h"
 #include "util_stuff.h"
 #include "mystrings.h"
-#include "switches.h"
 
 // pravila
 

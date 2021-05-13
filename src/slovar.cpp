@@ -23,7 +23,6 @@
 #include "util_stuff.h"
 #include "sint1.h"
 #include "profile5.h"
-#include "switches.h"
 #include "ffind.h"
 #include "linux.h"
 
@@ -287,6 +286,8 @@ int TGFP::pripravi_slovar(class Profile *prf, char *slo_dir)
         else if (slovar[n] == '\t')
             slovar[n] = 0; // zato, da bo strcmp v searchu delal prav (da bo primerjal le geslo in ne se izgovorjavo)
     }
+    slovar[all_len - 1] = 0;
+    slovar[all_len - 2] = 0;
     free(DCTPosition); DCTPosition = NULL;
 
 

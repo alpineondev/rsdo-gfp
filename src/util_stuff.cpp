@@ -127,8 +127,8 @@ int toCstring(char *stavek)
 
 #define CP_COUNT 4
 #define CP_LEN   CP_COUNT*10
-#define CP_ASCIII
-                        //ascii7 iso8859-2 cp1250 cp852
+
+//                ascii7 iso8859-2 cp1250 cp852
 int OriginalCP[] = { 126,232,232,159,   //c^
                       94,200,200,172,   //C^
                       123,185,154,231,  //s^
@@ -137,31 +137,44 @@ int OriginalCP[] = { 126,232,232,159,   //c^
                       64,174,142,166,   //Z^
                       126,230,230,134,  //c/
                       94,198,198,143,   //C/
-                      127,240,240,208,  //d| -> ¦
+                      125,240,240,208,  //d| -> }
                       127,208,208,209,  //D| -> ¦
                         0 };            //zakljuci niz
 
-void ConvertCPcStr(char* Niz, int cp) {
+// Vedno prevede v interni ascii7 zapis
+void ConvertCPcStr(char* Niz, const int cp_in) {
     int i = 0;
-
+    if (cp_in == CPascii) return;
     while (Niz[i] != 0) {
-        Niz[i] = ConvertCPc(Niz[i], cp);
+        Niz[i] = ConvertCPc(Niz[i], cp_in);
         i++;
     }
 }
+
 //------------------------------------------------------------------------------
 
-int ConvertCPc(int s, int cp) {
-    //CPascii  pretvori v ASCII 7 (ISO 646-YU)
-    //CP1250   pretvori v CP 1250
-    //CPlatin2 pretvori v ISO 8859-2 (ISO Latin 2)
-    //CP852    pretvori v CP 852
+// Vedno prevede v interni ascii7 zapis
+int ConvertCPc(int s, const int cp_in) {
+    //CP1250   pretvori iz CP 1250
+    //CPlatin2 pretvori iz ISO 8859-2 (ISO Latin 2)
+    //CP852    pretvori iz CP 852
     int k;
-    for (k = 0; k < CP_LEN; k++) {
-        if (s == OriginalCP[k]) return OriginalCP[k - (k % CP_COUNT) + cp];
+    if (cp_in == CPascii) return s;
+    for (k = 0; k < CP_LEN / CP_COUNT; k++) {
+        if (s == OriginalCP[k*CP_COUNT + cp_in]) return OriginalCP[k*CP_COUNT];
     }
     return s;
 }
+//------------------------------------------------------------------------------
+
+bool IsInCPc(int s, const int cp_in) {
+    int k;
+    for (k = 0; k < CP_LEN / CP_COUNT; k++) {
+        if (s == OriginalCP[k*CP_COUNT + cp_in]) return true;
+    }
+    return false;
+}
+
 //------------------------------------------------------------------------------
 
 //brise vse presledke pred in za nizom

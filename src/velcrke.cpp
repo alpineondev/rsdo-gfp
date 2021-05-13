@@ -15,7 +15,6 @@
 #include <string.h>
 #include "gfp.h"
 #include "sint1.h"
-#include "switches.h"
 
 // *****************************************************************
 

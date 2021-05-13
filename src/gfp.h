@@ -284,6 +284,7 @@ public:
     //simboli
     int    pripravi_simbole(class Profile *profile);
     int    beri_sim(const char *ime, int index, class Profile *profile);
+    int    beri_sim(const char *ime, int index, const char *data);
 
     int    je_mcrka(unsigned char);
     int    je_vcrka(unsigned char);
